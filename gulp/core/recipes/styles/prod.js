@@ -4,6 +4,7 @@ var sass         = require('gulp-sass');
 var autoprefixer = require('gulp-autoprefixer');
 var minify       = require('gulp-cssnano');
 var notify       = require('gulp-notify');
+var hash = require('gulp-hash-filename');
 
 // utils
 var pumped       = require('../../utils/pumped');
@@ -24,7 +25,8 @@ module.exports = function () {
 		.pipe(sass.sync(config.options.sass).on('error', sass.logError))
 		.pipe(autoprefixer(config.options.autoprefixer))
 
-		.pipe(minify(config.options.minify))
+    .pipe(minify(config.options.minify))
+    .pipe(hash())
 
 		.pipe(gulp.dest(config.paths.dest))
 		.pipe(notify({

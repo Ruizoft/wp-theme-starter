@@ -55,7 +55,7 @@ if ( ! function_exists( 'theme_setup' ) ) {
 		/*
 		add_theme_support( 'post-thumbnails' );
 		*/
-		
+
 		// Add Custom Logo Support.
 		/*
 		add_theme_support( 'custom-logo', array(
@@ -133,11 +133,19 @@ if ( ! function_exists( 'theme_setup' ) ) {
  *
  * @since 1.0
  */
-if ( ! function_exists( 'theme_styles' ) ) {
+ if ( ! function_exists( 'theme_styles' ) ) {
 	function theme_styles() {
 		$theme_dir = get_stylesheet_directory_uri();
+		$dirCSS = new DirectoryIterator(get_stylesheet_directory() . '/assets/css');
 
-		wp_enqueue_style( 'main', "$theme_dir/assets/css/main.css", array(), null, 'all' );
+		foreach ($dirCSS as $file) {
+		    if (pathinfo($file, PATHINFO_EXTENSION) === 'css') {
+		        $fullName = basename($file);    // main.3hZ9.js
+		        $name = substr(basename($fullName), 0, strpos(basename($fullName), '.')); // main
+
+		        wp_enqueue_style( $name, "$theme_dir/assets/css/$fullName", array(), null, 'all' );
+		    }
+		}
 	}
 }
 
@@ -151,8 +159,16 @@ if ( ! function_exists( 'theme_styles' ) ) {
 if ( ! function_exists( 'theme_scripts' ) ) {
 	function theme_scripts() {
 		$theme_dir = get_stylesheet_directory_uri();
+		$dirJS = new DirectoryIterator(get_stylesheet_directory() . '/assets/js');
 
-		wp_enqueue_script( 'main', "$theme_dir/assets/js/main.js", array(), null, true );
+		foreach ($dirJS as $file) {
+		    if (pathinfo($file, PATHINFO_EXTENSION) === 'js') {
+		        $fullName = basename($file);    // main.3hZ9.js
+		        $name = substr(basename($fullName), 0, strpos(basename($fullName), '.')); // main
+
+		        wp_enqueue_script( $name, "$theme_dir/assets/js/$fullName", array(), null, true );
+		    }
+		}
 	}
 }
 

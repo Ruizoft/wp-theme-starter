@@ -9,10 +9,14 @@
 
 <?php // common footer content goes here ?>
 
+<footer>
+</footer>
+
 
 
 <?php wp_footer(); ?>
 
 <?php // </body> opens in header.php ?>
+</div>
 </body>
 </html>
