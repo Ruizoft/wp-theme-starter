@@ -30,7 +30,17 @@ module.exports = deepMerge({
 	},
 
 	options: {
-		svgmin: {multipass: true}
+		svgmin: {
+      multipass: true,
+      plugins: [
+        {
+            cleanupIDs: {
+                remove: false,
+                minify: true,
+            }
+        }
+    ]
+    }
 	}
 
 }, overrides);
